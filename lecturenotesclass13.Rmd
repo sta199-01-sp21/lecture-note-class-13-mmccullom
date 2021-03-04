@@ -347,7 +347,14 @@ population *median* price of 1-bedroom apartments in Manhattan. Do this in a
 single code chunk with a single pipeline. Provide an interpretation of your result.
 
 ```{r practice_1}
-
+manhattan%>%
+  specify(response = rent)%>%
+  generate(reps = 10000, type = "bootstrap") %>%
+  calculate(stat = "median")%>%
+  summarize(
+    lower = quantile(stat, 0.025),
+    upper = quantile(stat, 0.975)
+  )
 ```
 
 ### A confidence interval for the population proportion - $p$
@@ -356,10 +363,10 @@ Consider the mice radiation dataset. Suppose we want to compute a 95% confidence
 
 First, identify the following:
 
-- Population: 
-- Parameter of interest:
-- Sample:
-- Sample size:
+- Population: Mice
+- Parameter of interest: Proportion of dead mice with no treatment
+- Sample: Dead mice with no treatment
+- Sample size: 522
 
 ```{r boot_mice}
 boot_prop <- mice %>% 
@@ -377,6 +384,8 @@ ci_mice_died
 
 What does this mean?
 
+There is a confidence of 95% that the proportion of dead mice not on treatment is between 0.690 and 0.797
+
 **Interpretation**:
 
 ```{r visualize_ci_mice}
@@ -389,22 +398,35 @@ visualise(boot_prop) +
 Consider the mice radiation results. Suppose we want to compute a 90% confidence interval for the proportion of mice that lived while on the treatment, regardless of the dose.
 
 ```{r practice_2_bootstrap}
-
+boot_live <- mice%>%
+  filter(treat==1)%>%
+  mutate(living = if_else(died==0, "yes", "no"))%>%
+  specify(response=living, success = "yes")%>%
+  generate(reps=10000, type = "bootstrap")%>%
+  calculate(stat = "prop")
 ```
 
 ```{r practice_2_ci}
+ci_boot_live <- boot_live %>%
+  summarize(
+    lower = quantile(stat, 0.05),
+    upper = quantile(stat, 0.95)
+  )
 
+ci_boot_live
 ```
 
 Visualizing our Resuts:
 
 ```{r practice_2_visualize}
-
+visualize(boot_live)+
+  shade_ci(ci_boot_live)
 ```
 
 
 Give an interpretation of your result.
 
+We have a 90% confidence level that the actual mean is between 0.551 and 0.651, meaning that between 0.551 and 0.651 mice who received the treatment lived.
 
 # References
 
