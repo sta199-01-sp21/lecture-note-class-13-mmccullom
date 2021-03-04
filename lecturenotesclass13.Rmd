@@ -1,6 +1,6 @@
 ---
 title: "Simulation-based inference - confidence intervals"
-author: ""
+author: "Michael McCullom"
 date: "March 3, 2021"
 output: html_document
 editor_options: 
@@ -106,6 +106,8 @@ as the "best guess", or estimate, for the population parameter.
 Suppose we were interested in the population mean. What would be natural
 point estimate to use?
 
+We would use the statistic mean $\bar{x}$.
+
 
 | Quantity           | Parameter  | Statistic   |
 |--------------------|------------|-------------|
@@ -117,6 +119,8 @@ point estimate to use?
 
 
 What is the downside to using point estimates?
+
+Point estimates only provide a single statistical value for a population that may be better represented by a range of values. They give less information when compared to intervals.
 
 ## Confidence intervals
 
@@ -189,7 +193,7 @@ Consider 20 1-bedroom apartments that were randomly selected on
 Craigslist Manhattan from apartments listed as "by owner".
 
 ```{r data_manhattan}
-manhattan <- read_csv("~/manhattan.csv")
+manhattan <- read_csv("~/All Class Notes/lecture-note-class-13-mmccullom/manhattan.csv")
 ```
 
 Consider 3-10 day survival of mice randomized to various
