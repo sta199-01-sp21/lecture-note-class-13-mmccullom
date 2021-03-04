@@ -223,7 +223,7 @@ population %>%
 
 Take a sample with `slice_sample()` and compute the mean.
 
-```{r sample_iq_scores}
+```{r sample_act_scores}
 population %>% 
   slice_sample(n = 30) %>% 
   summarise(mean_act = mean(act))
@@ -231,6 +231,8 @@ population %>%
 
 Did everyone get the same value? If fact, each time you sample (run the above
 code chunk) you will most likely get a slightly different mean. (Please ignore impossible values.)
+
+No because the mean value changes with every simulation.
 
 The mean is not unique to this phenomenon. There will be variability for
 all of the sample statistics we'll be using to produce confidence intervals.
@@ -254,10 +256,10 @@ Create a 95% bootstrap confidence interval for the population *mean* price of
 
 First, identify the following:
 
-- Population: 
-- Parameter of interest:
-- Sample:
-- Sample size:
+- Population: 1 Bedroom Apartments in Manhattan
+- Parameter of interest: Mean Price
+- Sample: 1 Bedroom Apartments on Craigslist
+- Sample size: 20
 
 To create our confidence interval, we'll follow the four-step bootstrap
 scheme outlined in the slides using functions from `infer`.
@@ -333,6 +335,8 @@ get_ci(boot_means, level = 0.95)
 ```
 
 What does this mean?
+
+There is 95% confidence that the actual mean price of a Manhattan Apartment lies in this range of mean values.
 
 **Interpretation**:
 
