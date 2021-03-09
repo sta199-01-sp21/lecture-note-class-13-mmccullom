@@ -384,7 +384,7 @@ ci_mice_died
 
 What does this mean?
 
-There is a confidence of 95% that the proportion of dead mice not on treatment is between 0.690 and 0.797
+There is 95% confidence that the proportion of dead mice not on treatment is between 0.690 and 0.797
 
 **Interpretation**:
 
